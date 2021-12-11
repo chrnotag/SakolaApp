@@ -11,9 +11,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.example.sakolaapp.R
 import com.example.sakolaapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class HomeActivity : AppCompatActivity() {
 

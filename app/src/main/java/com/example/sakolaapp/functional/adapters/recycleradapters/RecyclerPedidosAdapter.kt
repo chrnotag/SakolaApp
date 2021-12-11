@@ -16,12 +16,6 @@ class RecyclerPedidosAdapter: RecyclerView.Adapter<RecyclerPedidosAdapter.viewHo
 
     class viewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val pedidosItem: ConstraintLayout
-
-        init {
-            pedidosItem = itemView.findViewById(R.id.Pedidos_Item)
-        }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -32,7 +26,7 @@ class RecyclerPedidosAdapter: RecyclerView.Adapter<RecyclerPedidosAdapter.viewHo
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
 
-        holder.pedidosItem.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val intent =Intent(holder.itemView.context, DetalhesPedido::class.java)
             startActivity(holder.itemView.context, intent, null)
         }
