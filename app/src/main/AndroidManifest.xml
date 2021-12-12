@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SakolaApp">
         <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activities.FinalizarPedido"
             android:exported="false" />
         <activity
@@ -27,25 +36,21 @@
         <activity
             android:name=".Activities.RegisterActivity"
             android:exported="true" />
-        <activity android:name=".Activities.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="true"/>
         <activity
             android:name=".Activities.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.SakolaApp.NoActionBar"/>
+            android:theme="@style/Theme.SakolaApp.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC8IxvKhxNuuvKGr2X1K-oQ2s2orFA8C0s" />
     </application>
-
-
 
 </manifest>

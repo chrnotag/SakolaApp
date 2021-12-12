@@ -11,55 +11,21 @@
         android:id="@+id/imageView3"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/nomeUser"
-        app:layout_constraintEnd_toStartOf="@+id/chipGroup"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/sakolalogosimples" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:checkedChip="@id/atendente"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/atendente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:text="Atendente"
-            android:textSize="20sp"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/gerente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:text="Gerente"
-            android:textSize="20sp" />
-    </com.google.android.material.chip.ChipGroup>
+        app:srcCompat="@drawable/sakolalogojpg" />
 
     <EditText
         android:id="@+id/nomeUser"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Nome"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorLink="#DA4521"
         app:layout_constraintBottom_toTopOf="@+id/sobrenomeUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +33,7 @@
 
     <EditText
         android:id="@+id/sobrenomeUser"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Sobrenome"
@@ -80,53 +46,20 @@
 
     <EditText
         android:id="@+id/idUser"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Identificação"
         android:inputType="number"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/emailRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sobrenomeUser" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkedButton="@id/primeiroTurno"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/emailRegister"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idUser">
-
-        <RadioButton
-            android:id="@+id/primeiroTurno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="1º Turno" />
-
-        <RadioButton
-            android:id="@+id/segundoTurno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="2º Turno" />
-
-        <RadioButton
-            android:id="@+id/terceiroTurno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3º Turno" />
-    </RadioGroup>
-
     <EditText
         android:id="@+id/emailRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Email"
@@ -135,11 +68,11 @@
         app:layout_constraintBottom_toTopOf="@+id/senhaRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/idUser" />
 
     <EditText
         android:id="@+id/senhaRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Senha"
@@ -152,7 +85,7 @@
 
     <EditText
         android:id="@+id/confSenhaRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Repetir Senha"
@@ -169,8 +102,19 @@
         android:layout_height="wrap_content"
         android:background="@drawable/fundo_btn_entrar"
         android:text="Registrar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confSenhaRegister" />
+
+    <ProgressBar
+        android:id="@+id/progressBarRegister"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Registrar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

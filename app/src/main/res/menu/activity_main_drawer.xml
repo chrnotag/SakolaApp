@@ -6,19 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/produtos"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/fastfood"
             android:title="@string/produtos" />
         <item
             android:id="@+id/pedidos"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/food_bank"
             android:title="@string/pedidos" />
         <item
             android:id="@+id/estoque"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/archive"
             android:title="@string/estoque" />
-        <item android:id="@+id/faturamento"
-            android:title="@string/faturamento"/>
-        <item android:id="@+id/exit"
-            android:title="@string/sair"/>
     </group>
 </menu>

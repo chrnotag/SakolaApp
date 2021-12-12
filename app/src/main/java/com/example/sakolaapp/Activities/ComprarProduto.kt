@@ -17,11 +17,11 @@ import java.util.*
 
 class ComprarProduto : AppCompatActivity() {
 
-    var count = 0
+    var count = 1
     val auth = FirebaseAuth.getInstance()
     val firestore = FirebaseFirestore.getInstance()
-        .collection(auth.currentUser.toString())
-        .document()
+        .collection(auth.currentUser?.uid.toString())
+        .document("Carrinho")
         .collection("Carrinho")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,12 +58,17 @@ class ComprarProduto : AppCompatActivity() {
             }
         }
 
+
+
         TotalPrice.setOnClickListener {
-            val carrinho = AdicionarCarrinhoFirebase(nome!!, count.toString(), Price!!, img!!)
+
+            val totalPrice = price*count
+            val carrinho = AdicionarCarrinhoFirebase(nome!!, count.toString(), totalPrice.toString(), img!!)
             firestore.add(carrinho)
                 .addOnSuccessListener {
                     val intent = Intent(this, FinalizarPedido::class.java)
                     startActivity(intent)
+                    this.finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Not Ok", Toast.LENGTH_SHORT).show()

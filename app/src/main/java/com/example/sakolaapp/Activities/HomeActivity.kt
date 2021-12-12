@@ -3,6 +3,7 @@ package com.example.sakolaapp.Activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +17,7 @@ import com.example.sakolaapp.R
 import com.example.sakolaapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -50,6 +52,21 @@ class HomeActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.cart -> {
+                val intent = Intent(this, FinalizarPedido::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.exit -> {
+                Deslogar()
+                return true
+            }
+            else -> return false
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

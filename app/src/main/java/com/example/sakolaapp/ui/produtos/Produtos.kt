@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sakolaapp.Activities.ComprarProduto
 import com.example.sakolaapp.R
 import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.*
@@ -23,9 +24,11 @@ class Produtos : Fragment() {
         fun newInstance() = Produtos()
     }
 
-    lateinit var adapter: GroupAdapter<GroupieViewHolder>
+    val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
-    private lateinit var viewModel: ProdutosViewModel
+    lateinit var adapter: GroupAdapter<GroupieViewHolder>   //Pega a Instancia do Groupíe Biblioteca
+
+    private lateinit var viewModel: ProdutosViewModel   //Instancia do ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,16 +38,17 @@ class Produtos : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = GroupAdapter()
+        adapter = GroupAdapter()    //Retorna o GroupAdapter da Biblioteca Groupie
 
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)    //LayoutManager
 
-        recycler_produtos.adapter = adapter
-        recycler_produtos.layoutManager = layoutManager
+        recycler_produtos.adapter = adapter     //Seta o adapter do Recycler Produtos
+        recycler_produtos.layoutManager = layoutManager     //Seta o LayoutManager
 
-        buscarProdutos()
+        buscarProdutos()    //Chamada do Método interno para buscar produtos
     }
 
+    //Inner Class para o groupie viewHolder
     private inner class ProdutosItem(internal val adProdutos: RegistrarProdutoFirabase) :
         Item<GroupieViewHolder>() {
         override fun getLayout(): Int = R.layout.recycler_produtos_layout

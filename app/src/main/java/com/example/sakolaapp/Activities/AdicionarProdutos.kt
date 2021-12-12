@@ -9,8 +9,10 @@ import android.view.View
 import android.widget.Toast
 import com.example.sakolaapp.R
 import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_adicionar_estoquew.*
 import kotlinx.android.synthetic.main.activity_adicionar_produtos.*
 import kotlinx.android.synthetic.main.recycler_produtos_layout.*
 import java.util.*
@@ -27,7 +29,16 @@ class AdicionarProdutos : AppCompatActivity() {
             SelecionarFoto()
         }
         SalvarProduto.setOnClickListener{
-            SalvarDados()
+            if(selecionarUri != null
+                && NomeProduto.text.isNotEmpty()
+                && Price.text.isNotEmpty()
+                && Desc.text.isNotEmpty()){
+                SalvarDados()
+            }else if(selecionarUri == null){
+                Snackbar.make(Desc, "Por favor adicione uma imagem", Snackbar.LENGTH_SHORT).show()
+            }else{
+                Snackbar.make(Desc, "Verifique os campos", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -42,7 +53,9 @@ class AdicionarProdutos : AppCompatActivity() {
     fun SelecionarFoto(){
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, 0)
+        if(intent != null){
+            startActivityForResult(intent, 0)
+        }
     }
 
     fun SalvarDados(){
@@ -73,9 +86,11 @@ class AdicionarProdutos : AppCompatActivity() {
                     }
                 }.addOnProgressListener {
                     progressBarAdiconarProduto.visibility = View.VISIBLE
+                    atual_percent.visibility = View.VISIBLE
                     progressBarAdiconarProduto.progress = 0
                     val progress: Long = (100*it.bytesTransferred/it.totalByteCount)
                     progressBarAdiconarProduto.progress = progress.toInt()
+                    atual_percent.text = "${progress.toString()}%"
                 }
         }
     }
@@ -83,12 +98,11 @@ class AdicionarProdutos : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 0){
+        if(requestCode == 0 && data != null){
             selecionarUri = data?.data
 
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selecionarUri)
             AddImgproduto.setImageBitmap(bitmap)
-
         }
 
     }
