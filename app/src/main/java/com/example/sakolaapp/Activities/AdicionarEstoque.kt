@@ -68,7 +68,7 @@ class AdicionarEstoque : AppCompatActivity() {
                                     Toast.LENGTH_LONG
                                 ).show()
 
-                                this.finish()
+                                updateUi()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(
@@ -122,6 +122,12 @@ class AdicionarEstoque : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        this.finish()
+    }
+
+    fun updateUi(){
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
         this.finish()
     }
 
