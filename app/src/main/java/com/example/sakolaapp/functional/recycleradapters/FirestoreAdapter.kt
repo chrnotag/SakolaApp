@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sakolaapp.R
 import com.example.sakolaapp.functional.adapters.DBO.AdicionarCarrinhoFirebase
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.carrinho_layout.view.*
 
-class FirestoreAdapter(options: FirestoreRecyclerOptions<AdicionarCarrinhoFirebase>) :
-    FirestoreRecyclerAdapter<AdicionarCarrinhoFirebase, FirestoreAdapter.viewHolder>(options) {
+class FirestoreAdapter(options: FirebaseRecyclerOptions<AdicionarCarrinhoFirebase>) :
+    FirebaseRecyclerAdapter<AdicionarCarrinhoFirebase, FirestoreAdapter.viewHolder>(options) {
 
     inner class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -31,7 +31,7 @@ class FirestoreAdapter(options: FirestoreRecyclerOptions<AdicionarCarrinhoFireba
     ) {
         holder.itemView.nomeProdutoCarrinho.text = model.produto
         holder.itemView.QtdProdutoCarrinho.text = model.qtd
-        holder.itemView.PriceItemCarrinho.text = model.price
+        holder.itemView.PriceItemCarrinho.text = "R$ ${model.price}"
 
         Picasso.get().load(model.img).into(holder.itemView.ImgItemCarrinho)
     }

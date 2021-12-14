@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AdicionarCarrinhoFirebase(
+    val cod: String = "",
     val produto:String = "",
     val qtd:String = "",
     val price:String = "",

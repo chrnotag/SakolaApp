@@ -15,8 +15,8 @@ class DetalhesPedido : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_pedido)
 
+        //Ainda não Pude configurar essa activity
         val layoutManager = LinearLayoutManager(this)
-
         recycler_detalhe_pedidos.layoutManager = layoutManager
 
     }

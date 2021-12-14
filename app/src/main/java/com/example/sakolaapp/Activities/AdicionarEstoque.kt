@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.sakolaapp.R
 import com.example.sakolaapp.functional.DBO.EstoqueFirebase
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.storage.FirebaseStorage
@@ -21,56 +22,80 @@ import java.util.*
 
 class AdicionarEstoque : AppCompatActivity() {
 
-    val firestore = FirebaseFirestore.getInstance()
-        .collection("estoque")
+    val firestore =
+        FirebaseDatabase.getInstance().reference.child("estoque")   //Referencia ao estoque no Firebase
 
-    var selecionarUri: Uri? = null
+    var selecionarUri: Uri? =
+        null      //Variavel para guardar a URL da imagem após salvar no Firebase Storage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_estoquew)
 
-        SalvarEstoque.setOnClickListener {
-            if(selecionarUri != null
+        SalvarEstoque.setOnClickListener {   //Ação de clique no botão salvar
+            if (selecionarUri != null        //Verificação de campos
                 && NomeItemEstoque.text.isNotEmpty()
-                && QtdItemEstoque.text.isNotEmpty()){
-                    SalvarDados()
-            }else if(selecionarUri == null){
-                Snackbar.make(QtdItemEstoque, "Por favor selecione uma Imagem", Snackbar.LENGTH_SHORT).show()
-            }else{
+                && QtdItemEstoque.text.isNotEmpty()
+            ) {
+                SalvarDados()           //Chamada de metódo que salva os dados
+            } else if (selecionarUri == null) {        //Controle de Erros
+                Snackbar.make(
+                    QtdItemEstoque,
+                    "Por favor selecione uma Imagem",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
                 Snackbar.make(QtdItemEstoque, "Verifique os campos", Snackbar.LENGTH_SHORT).show()
             }
         }
 
-        AddImgEstoque.setOnClickListener {
-            PegarImagem()
+        AddImgEstoque.setOnClickListener {      //Ação do toque na área da imagem
+            PegarImagem()       //Chamada de método para pegar a imagem selecionada
         }
     }
 
-    private fun SalvarDados() {
-        val nomeArquivo = UUID.randomUUID().toString()
+    private fun SalvarDados() {     //Método para salvar dados no firebase
+
+        val nomeArquivo = UUID.randomUUID()
+            .toString()  //Randomiza um nome para a imagem a ser salva no Firebase Storage
+
         val storage = FirebaseStorage.getInstance()
-            .getReference("imagens/${nomeArquivo}")
-        selecionarUri?.let { uri ->
+            .getReference("imagens/${nomeArquivo}")     //Referencia ao Firebase Storage
+
+        selecionarUri?.let { uri ->     //Passar a imagem pega do dispositivo como Uri para o Storage
             storage.putFile(uri)
                 .addOnSuccessListener {
-                    storage.downloadUrl.addOnSuccessListener {
-                        val img = it.toString()
-                        val nome = NomeItemEstoque.text.toString()
-                        val qtd = QtdItemEstoque.text.toString()
-                        val estoque = EstoqueFirebase(img, nome, qtd)
 
-                        firestore.add(estoque)
-                            .addOnSuccessListener {
+                    storage.downloadUrl.addOnSuccessListener {   //Método para pegar o link da imagem salva no Storage
+
+                        val img =
+                            it.toString()     //Recupera o link da imagem retornado pelo método
+
+                        val nome = NomeItemEstoque.text.toString()  //Recupera o nome digitado
+
+                        val qtd = QtdItemEstoque.text.toString()
+                            .toInt()    //Recupera a quantidade digitada
+
+                        val estoque = EstoqueFirebase(
+                            img,
+                            nome,
+                            qtd
+                        )   //Instancia da classe modelo EstoqueFirebase e passagem de dados
+
+
+                        //Função para salvar os dados do estoque no Firebase Database
+                        firestore.child(Cod_Estoque.text.toString()).setValue(estoque)
+
+                            .addOnCompleteListener {
                                 Toast.makeText(
                                     this,
                                     "Item Salvo com Sucesso",
                                     Toast.LENGTH_LONG
                                 ).show()
 
-                                updateUi()
+                                updateUi()  //Chamada da função UpdateUi que faz a passagem de volta para a activity Home
                             }
-                            .addOnFailureListener {
+                            .addOnFailureListener {     //Tratamento de erros
                                 Toast.makeText(
                                     this,
                                     "Falha ao salvar Item",
@@ -79,19 +104,23 @@ class AdicionarEstoque : AppCompatActivity() {
                             }
                     }
                 }
+
+                //Método que tráz o andamento do upload da imagem para o Storage e envia os dados para a ProgressBar
                 .addOnProgressListener {
+
                     progressBarEstoque.visibility = View.VISIBLE
                     atual_percent_estoque.visibility = View.VISIBLE
 
                     progressBarEstoque.progress = 0
                     atual_percent_estoque.text = "0%"
 
-                    val progress: Long = (100 * it.bytesTransferred / it.totalByteCount)
+                    val progress: Long = (100 * it.bytesTransferred / it.totalByteCount)    //Conta para saber a porcentagem atual
 
                     progressBarEstoque.progress = progress.toInt()
 
                     atual_percent_estoque.text = "${progress.toInt().toString()}%"
                 }
+                    //Método para tratamento de erros do upload
                 .addOnFailureListener {
                     Toast.makeText(
                         this,
@@ -102,32 +131,31 @@ class AdicionarEstoque : AppCompatActivity() {
         }
     }
 
+    //Método sobrescrito para resgatar a imagem selecionada no dispositivo
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null && requestCode == 0) {
+
+        if (data != null && requestCode == 0) {     //Verificando se Há imagem selecionada
+            //Caso haja imagem selecionada, irá converte-la em bitmap e inserir no ImageView
             selecionarUri = data?.data
 
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selecionarUri)
-            AddImgEstoque.setImageBitmap(bitmap)
+            AddImgEstoque.setImageBitmap(bitmap)    //Inserindo Imagem no ImageView
         }
     }
 
-    fun PegarImagem() {
+    fun PegarImagem() {     //Função que abre a galeria para selecionar imagem
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        if (intent != null) {
-            startActivityForResult(intent, 0)
-        }
+        startActivityForResult(intent, 0)   //Chamada do método sobrescrito e passagem de código de função
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() {      //Função para finalizar a acitivty quando pressionado o botão voltar
         super.onBackPressed()
         this.finish()
     }
 
-    fun updateUi(){
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+    fun updateUi() {        //Função para finalizar a activity quando chamado
         this.finish()
     }
 

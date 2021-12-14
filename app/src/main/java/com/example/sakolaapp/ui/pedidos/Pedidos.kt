@@ -30,9 +30,9 @@ class Pedidos : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PedidosViewModel::class.java)
 
+        //Configurando o RecyclerView
         val layoutManager = LinearLayoutManager(context)
         val adapter = RecyclerPedidosAdapter()
-
         recyclerPedidos.layoutManager = layoutManager
         recyclerPedidos.adapter = adapter
     }

@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class EstoqueFirebase(
     val img: String = "",
     val nomeItem: String = "",
-    val qtdItem: String = ""
+    val qtdItem: Int = 0
 ):Parcelable

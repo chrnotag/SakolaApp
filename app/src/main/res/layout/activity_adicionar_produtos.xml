@@ -10,13 +10,11 @@
         android:id="@+id/AddImgproduto"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="16dp"
         android:clickable="true"
         android:elevation="5dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_image_search_24"
@@ -24,15 +22,13 @@
 
     <View
         android:id="@+id/divider2"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/NomeProduto"
+        app:layout_constraintBottom_toTopOf="@+id/Cod_Produto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddImgproduto" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarAdiconarProduto" />
 
     <EditText
         android:id="@+id/NomeProduto"
@@ -44,9 +40,8 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/Price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/Cod_Produto" />
 
     <EditText
         android:id="@+id/Price"
@@ -58,7 +53,6 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/Desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NomeProduto" />
 
@@ -72,7 +66,6 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/SalvarProduto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Price" />
 
@@ -83,7 +76,6 @@
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Desc" />
 
@@ -94,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,9 +98,22 @@
         android:layout_height="wrap_content"
         android:text="0%"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintEnd_toEndOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintStart_toStartOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintTop_toTopOf="@+id/progressBarAdiconarProduto" />
+
+    <EditText
+        android:id="@+id/Cod_Produto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Código Produto"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/NomeProduto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

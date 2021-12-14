@@ -12,6 +12,10 @@ import com.example.sakolaapp.Activities.ComprarProduto
 import com.example.sakolaapp.R
 import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.*
@@ -24,6 +28,8 @@ class Produtos : Fragment() {
         fun newInstance() = Produtos()
     }
 
+    //Referencia do FirebaseAuth
+    //Recuperando o Uid do usuário logado
     val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     lateinit var adapter: GroupAdapter<GroupieViewHolder>   //Pega a Instancia do Groupíe Biblioteca
@@ -38,57 +44,73 @@ class Produtos : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = GroupAdapter()    //Retorna o GroupAdapter da Biblioteca Groupie
+        adapter = GroupAdapter() //Retorna o GroupAdapter da Biblioteca Groupie
 
-        val layoutManager = LinearLayoutManager(context)    //LayoutManager
+        //Configuração do RecyclerView
+        val layoutManager = LinearLayoutManager(context)
+        recycler_produtos.adapter = adapter
+        recycler_produtos.layoutManager = layoutManager
 
-        recycler_produtos.adapter = adapter     //Seta o adapter do Recycler Produtos
-        recycler_produtos.layoutManager = layoutManager     //Seta o LayoutManager
-
-        buscarProdutos()    //Chamada do Método interno para buscar produtos
+        //Chamada do método BuscarProdutos
+        buscarProdutos()
     }
 
     //Inner Class para o groupie viewHolder
     private inner class ProdutosItem(internal val adProdutos: RegistrarProdutoFirabase) :
         Item<GroupieViewHolder>() {
+
+        //Layout do RecyclerView
         override fun getLayout(): Int = R.layout.recycler_produtos_layout
 
+        //Inserindo os dados no RecyclerView e outras configurações
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
+            //Enviando dados para as views do RecyclerView
             viewHolder.itemView.nameproduct.text = adProdutos.name
             viewHolder.itemView.priceproduct.text = "R$ ${adProdutos.price}"
             viewHolder.itemView.descriptionproduct.text = adProdutos.description
 
+            //Inserindo Imagem no ImageView
             Picasso.get().load(adProdutos.img).into(viewHolder.itemView.imageProduct)
 
+            //Evento de clique nos itens do RecyclerView
             viewHolder.itemView.setOnClickListener {
-                val intent = Intent(context, ComprarProduto::class.java)
 
+                //Enviar os dados por Intent para outra activity
+                val intent = Intent(context, ComprarProduto::class.java)
                 intent.putExtra("Nome", adProdutos.name)
                 intent.putExtra("Desc", adProdutos.description)
                 intent.putExtra("Price", adProdutos.price)
                 intent.putExtra("Img", adProdutos.img)
 
+                //Inicar a outra activity
                 startActivity(intent)
             }
 
         }
     }
 
+    //Método buscar produtos
     private fun buscarProdutos() {
 
-        FirebaseFirestore.getInstance().collection("Produtos")
-            .addSnapshotListener { value, error ->
-                error?.let {
-                    return@addSnapshotListener
-                }
-                value?.let {
-                    for (doc in value) {
-                        val produtos = doc.toObject(RegistrarProdutoFirabase::class.java)
-                        adapter.add(ProdutosItem(produtos))
+        FirebaseDatabase.getInstance().reference.child("Produtos")
+            .addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    snapshot.children.forEach {
+
+                        //Inserindo os valores recuperados na classe modelo RegistrarProdutosFirebase
+                        val produtos = it.getValue(RegistrarProdutoFirabase::class.java)
+
+                        //Inserir os dados recuperados no adapter
+                        adapter.add(ProdutosItem(produtos!!))
                     }
                 }
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
 
     }
 
@@ -96,12 +118,11 @@ class Produtos : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ProdutosViewModel::class.java]
 
-
+        //Evento de clique no botão de adicionar produtos
         AdicionarProdutos.setOnClickListener {
             val intent =
                 Intent(context, com.example.sakolaapp.Activities.AdicionarProdutos::class.java)
             startActivity(intent)
-            activity?.finish()
         }
     }
 }

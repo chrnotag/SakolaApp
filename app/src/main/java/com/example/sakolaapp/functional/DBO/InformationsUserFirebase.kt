@@ -5,8 +5,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class InformationsUserFirebase(
-    val Nome: String = "",
-    val Sobrenome: String = "",
-    val ID: String = "",
-    val Email: String = ""
+    val nome: String = "",
+    val sobrenome: String = "",
+    val id: Int = 0,
+    val email: String = "",
+    val imgPerfil: String? = ""
 ): Parcelable

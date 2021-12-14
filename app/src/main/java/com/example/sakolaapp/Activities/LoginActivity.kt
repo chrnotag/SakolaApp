@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //Configurando o FirebaseAppCheck para modo de Depuração
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(
             DebugAppCheckProviderFactory.getInstance()
@@ -43,35 +44,45 @@ class LoginActivity : AppCompatActivity() {
 
     private fun logarUsuário(email: String, senha: String) { //método de login
 
-        if(email.isNotEmpty() && senha.isNotEmpty()){
-        user.signInWithEmailAndPassword(email, senha)
-            .addOnSuccessListener { //Se o usuário logar, será enviado para a tela principal
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                this.finish()
-            }
-            .addOnFailureListener {
-                when (it) {
-                    is FirebaseAuthInvalidCredentialsException -> {
-                        Snackbar.make(
-                            registerScreen,
-                            "Usuário ou senha Inválidos",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                        emailLogin.setTextColor(Color.rgb(218,63,39))
-                    }
-                    is FirebaseAuthInvalidUserException -> {
-                        Snackbar.make(
-                            registerScreen,
-                            "Email não cadastrado",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                        emailLogin.setTextColor(Color.rgb(218,63,39))
+        if (email.isNotEmpty() && senha.isNotEmpty()) {
+
+            user.signInWithEmailAndPassword(email, senha)
+                //Se o usuário logar, será enviado para a tela principal
+                .addOnSuccessListener {
+
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
+
+                }
+                    //Tratamento de Erros no Login
+                .addOnFailureListener {
+
+                    when (it) {
+                        //Caso as credencias estejam erradas
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Snackbar.make(
+                                registerScreen,
+                                "Usuário ou senha Inválidos",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            emailLogin.setTextColor(Color.rgb(218, 63, 39))
+                        }
+                        //Caso o usuario esteja errado
+                        is FirebaseAuthInvalidUserException -> {
+                            Snackbar.make(
+                                registerScreen,
+                                "Email não cadastrado",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            emailLogin.setTextColor(Color.rgb(218, 63, 39))
+                        }
                     }
                 }
-            }
-        }else {
-            Snackbar.make(registerScreen, "Por favor verifique os campos", Snackbar.LENGTH_SHORT).show()
+        } else {
+            //Caso algum campo esteja em branco
+            Snackbar.make(registerScreen, "Por favor verifique os campos", Snackbar.LENGTH_SHORT)
+                .show()
         }
     }
 }

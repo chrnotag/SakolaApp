@@ -8,5 +8,6 @@ data class dadosUserFirebase(
     val nome: String = "",
     val sobrenome: String = "",
     val email: String = "",
-    val id: String = ""
+    val id: String = "",
+    val imgPerfil: String? = ""
 ):Parcelable
