@@ -75,7 +75,7 @@ class ComprarProduto : AppCompatActivity() {
             val totalPrice = price*count
 
             //Chamada da classe modelo AdicionarCarrinhoFirebase e passagem dos valores
-            val carrinho = AdicionarCarrinhoFirebase(nome!!, count.toString(), totalPrice.toString(), img!!)
+            val carrinho = AdicionarCarrinhoFirebase(nome!!, count, totalPrice.toString(), img!!)
 
             //Função para salvar os dados no Database
             Database.setValue(carrinho)

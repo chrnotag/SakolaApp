@@ -68,8 +68,7 @@ class AdicionarEstoque : AppCompatActivity() {
 
                     storage.downloadUrl.addOnSuccessListener {   //Método para pegar o link da imagem salva no Storage
 
-                        val img =
-                            it.toString()     //Recupera o link da imagem retornado pelo método
+                        val img = it.toString()     //Recupera o link da imagem retornado pelo método
 
                         val nome = NomeItemEstoque.text.toString()  //Recupera o nome digitado
 

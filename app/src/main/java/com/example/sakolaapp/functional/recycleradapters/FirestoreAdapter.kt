@@ -30,7 +30,7 @@ class FirestoreAdapter(options: FirebaseRecyclerOptions<AdicionarCarrinhoFirebas
         model: AdicionarCarrinhoFirebase
     ) {
         holder.itemView.nomeProdutoCarrinho.text = model.produto
-        holder.itemView.QtdProdutoCarrinho.text = model.qtd
+        holder.itemView.QtdProdutoCarrinho.text = model.qtd.toString()
         holder.itemView.PriceItemCarrinho.text = "R$ ${model.price}"
 
         Picasso.get().load(model.img).into(holder.itemView.ImgItemCarrinho)

@@ -44,7 +44,6 @@ class Estoque : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter = GroupAdapter() //Setando o adaptador no GroupAdapter
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -69,7 +68,8 @@ class Estoque : Fragment() {
     }
 
     //Classe do adaptador do Groupie
-    private inner class EstoqueItens(internal val adEstoque: EstoqueFirebase) : Item<GroupieViewHolder>() {
+    private inner class EstoqueItens(internal val adEstoque: EstoqueFirebase) :
+        Item<GroupieViewHolder>() {
 
         //Layout Usado no RecyclerView
         override fun getLayout(): Int = R.layout.recycler_estoque
