@@ -75,6 +75,8 @@ class AdicionarEstoque : AppCompatActivity() {
                         val qtd = QtdItemEstoque.text.toString()
                             .toInt()    //Recupera a quantidade digitada
 
+                        val cod = cod_estoque.text.toString()
+
                         val estoque = EstoqueFirebase(
                             img,
                             nome,
@@ -83,7 +85,7 @@ class AdicionarEstoque : AppCompatActivity() {
 
 
                         //Função para salvar os dados do estoque no Firebase Database
-                        firestore.child(Cod_Estoque.text.toString()).setValue(estoque)
+                        firestore.child(cod).setValue(estoque)
 
                             .addOnCompleteListener {
                                 Toast.makeText(

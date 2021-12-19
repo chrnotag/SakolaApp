@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
-import com.example.sakolaapp.R
+import com.example.sakolaapp.databinding.ActivityAdicionarProdutosBinding
+import com.example.sakolaapp.functional.DBO.ReceitaFirebase
 import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
-import com.example.sakolaapp.ui.produtos.Produtos
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -18,31 +18,36 @@ import java.util.*
 
 class AdicionarProdutos : AppCompatActivity() {
 
-    private var selecionarUri: Uri? = null  //Variavel para salvar a imagem selecionada no dispositivo como URI
+    private var selecionarUri: Uri? =
+        null  //Variavel para salvar a imagem selecionada no dispositivo como URI
+
+    private lateinit var binding: ActivityAdicionarProdutosBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_adicionar_produtos)
+        binding = ActivityAdicionarProdutosBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         AddImgproduto.setOnClickListener {      //Evento de click no Imageview
             SelecionarFoto()
         }
 
-        SalvarProduto.setOnClickListener{       //Evento de click no botão salvar
+        SalvarProduto.setOnClickListener {       //Evento de click no botão salvar
 
             //Verifica se alguma imagem foi selecionada no dispositivo e se os campos estão completos
-            if(selecionarUri != null
+            if (selecionarUri != null
                 && NomeProduto.text.isNotEmpty()
                 && Price.text.isNotEmpty()
-                && Desc.text.isNotEmpty()){
+                && Desc.text.isNotEmpty()
+            ) {
 
-                    //Caso tudo ocorra bem, chamará o método para salvar os dados
+                //Caso tudo ocorra bem, chamará o método para salvar os dados
                 SalvarDados()
-
                 //Tratamento de erros
-            }else if(selecionarUri == null){
+            } else if (selecionarUri == null) {
                 Snackbar.make(Desc, "Por favor adicione uma imagem", Snackbar.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Snackbar.make(Desc, "Verifique os campos", Snackbar.LENGTH_SHORT).show()
             }
         }
@@ -58,16 +63,20 @@ class AdicionarProdutos : AppCompatActivity() {
     }
 
     //Função para abrir a galeria
-    fun SelecionarFoto(){
+    fun SelecionarFoto() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, 0)   //Chamada do método sobrescrito passando o codigo de função
+        startActivityForResult(
+            intent,
+            0
+        )   //Chamada do método sobrescrito passando o codigo de função
     }
 
     //Método para salvar dados
-    fun SalvarDados(){
+    fun SalvarDados() {
 
-        val nomeArquivo = UUID.randomUUID().toString()  //Randomizar o nome da imagem a ser salva no Storage
+        val nomeArquivo =
+            UUID.randomUUID().toString()  //Randomizar o nome da imagem a ser salva no Storage
 
         //Referencia do FirebaseStorage
         val reference = FirebaseStorage.getInstance().getReference("imagens/${nomeArquivo}")
@@ -88,28 +97,26 @@ class AdicionarProdutos : AppCompatActivity() {
                         val name = NomeProduto.text.toString()
                         val price = Price.text.toString()
                         val description = Desc.text.toString()
-                        val cod = Cod_Produto.text.toString()
+                        val cod = binding.codigoProduto.text.toString()
 
                         //Chamada da classe Modelo RegistrarProdutosFirebase passando as informações capturadas acima
                         //Para serem salvas no Database
-                        val produtos = RegistrarProdutoFirabase(cod, img, name, price, description)
+                        val produtos = RegistrarProdutoFirabase(img, name, price, description)
 
                         //Adicionar os valores da classe modelo no Database
-                        FirebaseDatabase.getInstance().reference.child("Produtos").child(produtos.cod)
+                        FirebaseDatabase.getInstance().reference.child("Produtos")
+                            .child(cod)
                             .setValue(produtos)
                             .addOnCompleteListener {
-                                //Caso salve com sucesso, chamará o método onBackPressed para fechar essa activity
-                                Toast.makeText(this, "Sucesso ao salvar", Toast.LENGTH_LONG).show()
-                                onBackPressed()
 
                             }
-                                //Tratamento de erros
+                            //Tratamento de erros
                             .addOnFailureListener {
                                 Toast.makeText(this, "Falha ao salvar", Toast.LENGTH_LONG).show()
                             }
                     }
                 }
-                    //Pegar o progresso de upload da imagem para o Storage
+                //Pegar o progresso de upload da imagem para o Storage
                 .addOnProgressListener {
 
                     progressBarAdiconarProduto.visibility = View.VISIBLE
@@ -118,7 +125,7 @@ class AdicionarProdutos : AppCompatActivity() {
                     progressBarAdiconarProduto.progress = 0
 
                     //Calculo para a procentagem do Upload
-                    val progress: Long = (100*it.bytesTransferred/it.totalByteCount)
+                    val progress: Long = (100 * it.bytesTransferred / it.totalByteCount)
 
                     progressBarAdiconarProduto.progress = progress.toInt()
                     atual_percent.text = "${progress.toString()}%"
@@ -130,7 +137,7 @@ class AdicionarProdutos : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 0 && data != null){
+        if (requestCode == 0 && data != null) {
             selecionarUri = data?.data
 
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selecionarUri)

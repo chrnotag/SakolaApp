@@ -22,11 +22,10 @@
 
     <View
         android:id="@+id/divider2"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/Cod_Estoque"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cod_estoque"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarEstoque" />
 
@@ -41,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/QtdItemEstoque"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Cod_Estoque" />
+        app:layout_constraintTop_toBottomOf="@+id/cod_estoque" />
 
     <EditText
         android:id="@+id/QtdItemEstoque"
@@ -71,9 +70,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,22 +81,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/progressBarEstoque"
         app:layout_constraintEnd_toEndOf="@+id/progressBarEstoque"
         app:layout_constraintStart_toStartOf="@+id/progressBarEstoque"
         app:layout_constraintTop_toTopOf="@+id/progressBarEstoque" />
 
     <EditText
-        android:id="@+id/Cod_Estoque"
+        android:id="@+id/cod_estoque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Código Produto"
-        android:inputType="textPersonName"
+        android:hint="Código"
+        android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/NomeItemEstoque"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

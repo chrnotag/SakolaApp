@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sakolaapp.R
+import com.example.sakolaapp.functional.DBO.EstoqueFirebase
 import com.example.sakolaapp.functional.DBO.InformationsUserFirebase
+import com.example.sakolaapp.functional.DBO.ReceitaFirebase
 import com.example.sakolaapp.functional.DBO.RegistroPedidosFirebase
 import com.example.sakolaapp.functional.adapters.DBO.AdicionarCarrinhoFirebase
+import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
 import com.example.sakolaapp.functional.recycleradapters.FirestoreAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -48,7 +51,6 @@ class FinalizarPedido : AppCompatActivity() {
     //Instancia do FirestoreAdapter
     lateinit var adapter3: FirestoreAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cabecalho_confirmar_compra)
@@ -64,7 +66,6 @@ class FinalizarPedido : AppCompatActivity() {
             //Chamada do método buscarInformaçõesUsuario
             buscarInformaçõesUsuario()
         }
-
         //Configurar o recyclerView dos itens no carrinho
         setupRecyclerView()
     }
@@ -74,7 +75,7 @@ class FinalizarPedido : AppCompatActivity() {
     }
 
     //Configurações do RecyclerView com informções da onde deixar o pedido
-    fun RecyclerDeixarPedido(){
+    fun RecyclerDeixarPedido() {
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_Deixar_Pedido.layoutManager = layoutManager2
         recycler_Deixar_Pedido.adapter = adapter2
@@ -94,7 +95,6 @@ class FinalizarPedido : AppCompatActivity() {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.deixar_pedido_layout, parent, false)
             return viewHolder(view)
-
         }
 
         override fun onBindViewHolder(holder: viewHolder, position: Int) {
@@ -194,5 +194,4 @@ class FinalizarPedido : AppCompatActivity() {
         super.onStop()
         adapter3.stopListening()
     }
-
 }
