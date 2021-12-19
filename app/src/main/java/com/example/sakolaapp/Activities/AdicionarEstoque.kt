@@ -83,7 +83,7 @@ class AdicionarEstoque : AppCompatActivity() {
 
 
                         //Função para salvar os dados do estoque no Firebase Database
-                        firestore.child(Cod_Estoque.text.toString()).setValue(estoque)
+                        firestore.push().setValue(estoque)
 
                             .addOnCompleteListener {
                                 Toast.makeText(

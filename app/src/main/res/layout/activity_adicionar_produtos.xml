@@ -8,13 +8,14 @@
 
     <ImageView
         android:id="@+id/AddImgproduto"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:clickable="true"
         android:elevation="5dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/progressBarAdiconarProduto"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_image_search_24"
@@ -24,50 +25,60 @@
         android:id="@+id/divider2"
         android:layout_width="411dp"
         android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/Cod_Produto"
+        app:layout_constraintBottom_toTopOf="@+id/NomeProduto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarAdiconarProduto" />
+        app:layout_constraintTop_toBottomOf="@+id/AddImgproduto" />
 
     <EditText
         android:id="@+id/NomeProduto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Nome do Produto"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/Price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Cod_Produto" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/codigo_produto"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <EditText
         android:id="@+id/Price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Preço"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/Desc"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarAdiconarProduto"
+        app:layout_constraintEnd_toStartOf="@+id/Desc"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NomeProduto" />
 
     <EditText
         android:id="@+id/Desc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Descrição"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/SalvarProduto"
+        app:layout_constraintBottom_toBottomOf="@+id/Price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Price" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/Price"
+        app:layout_constraintTop_toTopOf="@+id/Price" />
 
     <Button
         android:id="@+id/SalvarProduto"
@@ -76,8 +87,9 @@
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Desc" />
+        app:layout_constraintTop_toBottomOf="@+id/checkOvo" />
 
     <ProgressBar
         android:id="@+id/progressBarAdiconarProduto"
@@ -86,11 +98,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/checkPao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddImgproduto" />
+        app:layout_constraintTop_toBottomOf="@+id/Price" />
 
     <TextView
         android:id="@+id/atual_percent"
@@ -98,22 +110,386 @@
         android:layout_height="wrap_content"
         android:text="0%"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintEnd_toEndOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintStart_toStartOf="@+id/progressBarAdiconarProduto"
         app:layout_constraintTop_toTopOf="@+id/progressBarAdiconarProduto" />
 
-    <EditText
-        android:id="@+id/Cod_Produto"
+    <TextView
+        android:id="@+id/qtdOvo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Código Produto"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/NomeProduto"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkOvo"
+        app:layout_constraintEnd_toStartOf="@+id/rmvOvo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addOvo"
+        app:layout_constraintTop_toTopOf="@+id/checkOvo" />
+
+    <TextView
+        android:id="@+id/qtdQueijo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkQueijo"
+        app:layout_constraintEnd_toStartOf="@+id/rmvQueijo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addQueijo"
+        app:layout_constraintTop_toTopOf="@+id/checkQueijo" />
+
+    <TextView
+        android:id="@+id/qtdSalada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkSalada"
+        app:layout_constraintEnd_toStartOf="@+id/rmvSalada"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addSalada"
+        app:layout_constraintTop_toTopOf="@+id/checkSalada" />
+
+    <TextView
+        android:id="@+id/qtdCarne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkCarne"
+        app:layout_constraintEnd_toStartOf="@+id/rmvCarne"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addCarne"
+        app:layout_constraintTop_toTopOf="@+id/checkCarne" />
+
+    <Button
+        android:id="@+id/rmvPresunto"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPresunto"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdPresunto"
+        app:layout_constraintTop_toTopOf="@+id/checkPresunto" />
+
+    <Button
+        android:id="@+id/addPresunto"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPresunto"
+        app:layout_constraintEnd_toStartOf="@+id/qtdPresunto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkPresunto"
+        app:layout_constraintTop_toTopOf="@+id/checkPresunto" />
+
+    <Button
+        android:id="@+id/rmvOvo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkOvo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdOvo"
+        app:layout_constraintTop_toTopOf="@+id/checkOvo" />
+
+    <Button
+        android:id="@+id/addSalada"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkSalada"
+        app:layout_constraintEnd_toStartOf="@+id/qtdSalada"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkSalada"
+        app:layout_constraintTop_toTopOf="@+id/checkSalada" />
+
+    <CheckBox
+        android:id="@+id/checkQueijo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Queijo"
+        app:layout_constraintBottom_toTopOf="@+id/checkOvo"
+        app:layout_constraintEnd_toStartOf="@+id/addQueijo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/checkCarne" />
+
+    <Button
+        android:id="@+id/rmvBacon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBacon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdBacon"
+        app:layout_constraintTop_toTopOf="@+id/checkBacon" />
+
+    <Button
+        android:id="@+id/addBacon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBacon"
+        app:layout_constraintEnd_toStartOf="@+id/qtdBacon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkBacon"
+        app:layout_constraintTop_toTopOf="@+id/checkBacon" />
+
+    <TextView
+        android:id="@+id/qtdBacon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBacon"
+        app:layout_constraintEnd_toStartOf="@+id/rmvBacon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addBacon"
+        app:layout_constraintTop_toTopOf="@+id/checkBacon" />
+
+    <TextView
+        android:id="@+id/qtdPresunto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPresunto"
+        app:layout_constraintEnd_toStartOf="@+id/rmvPresunto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addPresunto"
+        app:layout_constraintTop_toTopOf="@+id/checkPresunto" />
+
+    <CheckBox
+        android:id="@+id/checkOvo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ovo"
+        app:layout_constraintBottom_toTopOf="@+id/SalvarProduto"
+        app:layout_constraintEnd_toStartOf="@+id/addOvo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkQueijo" />
+
+    <CheckBox
+        android:id="@+id/checkCarne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Carne"
+        app:layout_constraintBottom_toTopOf="@+id/checkQueijo"
+        app:layout_constraintEnd_toStartOf="@+id/addCarne"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkPao" />
+
+    <Button
+        android:id="@+id/addCarne"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkCarne"
+        app:layout_constraintEnd_toStartOf="@+id/qtdCarne"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkCarne"
+        app:layout_constraintTop_toTopOf="@+id/checkCarne" />
+
+    <CheckBox
+        android:id="@+id/checkBacon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Bacon"
+        app:layout_constraintBottom_toBottomOf="@+id/checkQueijo"
+        app:layout_constraintEnd_toStartOf="@+id/addBacon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rmvQueijo"
+        app:layout_constraintTop_toTopOf="@+id/checkQueijo" />
+
+    <Button
+        android:id="@+id/addQueijo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkQueijo"
+        app:layout_constraintEnd_toStartOf="@+id/qtdQueijo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkQueijo"
+        app:layout_constraintTop_toTopOf="@+id/checkQueijo" />
+
+    <CheckBox
+        android:id="@+id/checkSalada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Salada"
+        app:layout_constraintBottom_toBottomOf="@+id/checkCarne"
+        app:layout_constraintEnd_toStartOf="@+id/addSalada"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rmvCarne"
+        app:layout_constraintTop_toTopOf="@+id/checkCarne" />
+
+    <Button
+        android:id="@+id/rmvCarne"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkCarne"
+        app:layout_constraintEnd_toStartOf="@+id/checkSalada"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdCarne"
+        app:layout_constraintTop_toTopOf="@+id/checkCarne" />
+
+    <Button
+        android:id="@+id/rmvQueijo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkQueijo"
+        app:layout_constraintEnd_toStartOf="@+id/checkBacon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdQueijo"
+        app:layout_constraintTop_toTopOf="@+id/checkQueijo" />
+
+    <Button
+        android:id="@+id/rmvSalada"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkSalada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdSalada"
+        app:layout_constraintTop_toTopOf="@+id/checkSalada" />
+
+    <Button
+        android:id="@+id/addOvo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkOvo"
+        app:layout_constraintEnd_toStartOf="@+id/qtdOvo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkOvo"
+        app:layout_constraintTop_toTopOf="@+id/checkOvo" />
+
+    <CheckBox
+        android:id="@+id/checkPresunto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Presunto"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPao"
+        app:layout_constraintEnd_toStartOf="@+id/addPresunto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rmvPao"
+        app:layout_constraintTop_toTopOf="@+id/checkPao" />
+
+    <CheckBox
+        android:id="@+id/checkPao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Pão"
+        app:layout_constraintBottom_toTopOf="@+id/checkCarne"
+        app:layout_constraintEnd_toStartOf="@+id/addPao"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarAdiconarProduto" />
+
+    <Button
+        android:id="@+id/addPao"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPao"
+        app:layout_constraintEnd_toStartOf="@+id/qtdPao"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkPao"
+        app:layout_constraintTop_toTopOf="@+id/checkPao" />
+
+    <Button
+        android:id="@+id/rmvPao"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="-"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPao"
+        app:layout_constraintEnd_toStartOf="@+id/checkPresunto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qtdPao"
+        app:layout_constraintTop_toTopOf="@+id/checkPao" />
+
+    <TextView
+        android:id="@+id/qtdPao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/checkPao"
+        app:layout_constraintEnd_toStartOf="@+id/rmvPao"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addPao"
+        app:layout_constraintTop_toTopOf="@+id/checkPao" />
+
+    <EditText
+        android:id="@+id/codigo_produto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Codigo produto"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/NomeProduto"
+        app:layout_constraintEnd_toStartOf="@+id/NomeProduto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NomeProduto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

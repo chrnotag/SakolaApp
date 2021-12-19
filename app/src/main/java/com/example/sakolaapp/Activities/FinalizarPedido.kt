@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sakolaapp.R
+import com.example.sakolaapp.functional.DBO.EstoqueFirebase
 import com.example.sakolaapp.functional.DBO.InformationsUserFirebase
+import com.example.sakolaapp.functional.DBO.ReceitaFirebase
 import com.example.sakolaapp.functional.DBO.RegistroPedidosFirebase
 import com.example.sakolaapp.functional.adapters.DBO.AdicionarCarrinhoFirebase
+import com.example.sakolaapp.functional.adapters.DBO.RegistrarProdutoFirabase
 import com.example.sakolaapp.functional.recycleradapters.FirestoreAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -74,7 +77,7 @@ class FinalizarPedido : AppCompatActivity() {
     }
 
     //Configurações do RecyclerView com informções da onde deixar o pedido
-    fun RecyclerDeixarPedido(){
+    fun RecyclerDeixarPedido() {
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_Deixar_Pedido.layoutManager = layoutManager2
         recycler_Deixar_Pedido.adapter = adapter2
